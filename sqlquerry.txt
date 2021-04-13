@@ -1,0 +1,41 @@
+DROP DATABASE IF EXISTS myshop;
+CREATE DATABASE mystore;
+use mystore;
+
+-- create tables
+CREATE TABLE categories (
+  category_id INT PRIMARY KEY ,
+  category_name VARCHAR (255) NOT NULL
+);
+
+CREATE TABLE brands (
+  brand_id INT  PRIMARY KEY ,
+  brand_name VARCHAR (255) NOT NULL
+);
+
+CREATE TABLE products (
+  product_id INT  PRIMARY KEY ,
+  product_name VARCHAR (255) NOT NULL,
+  brand_id INT NOT NULL,
+  category_id INT NOT NULL,
+  product_intro VARCHAR  NOT NULL,
+  list_price DECIMAL (10, 2) NOT NULL,
+  FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (brand_id) REFERENCES brands (brand_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+INSERT INTO brands(brand_id,brand_name) VALUES(1,'Dior');
+INSERT INTO brands(brand_id,brand_name) VALUES(2,'Gucci');
+INSERT INTO brands(brand_id,brand_name) VALUES(3,'LuisVuiton');
+INSERT INTO brands(brand_id,brand_name) VALUES(4,'Helmes');
+
+INSERT INTO categories(category_id,category_name) VALUES(1,'Giay');
+INSERT INTO categories(category_id,category_name) VALUES(2,'Vi');
+INSERT INTO categories(category_id,category_name) VALUES(3,'Tui xach');
+INSERT INTO categories(category_id,category_name) VALUES(4,'Balo');
+
+INSERT INTO products(product_id, product_name, brand_id, category_id, product_intro, list_price) VALUES(1,'Giay oxford nam',1,1,'Giay oxford la mot doi giay khong the thieu trong tu giay cua ban',379.99);
+INSERT INTO products(product_id, product_name, brand_id, category_id, product_intro, list_price) VALUES(2,'Vi card Henry',2,2,'Vi card Hennry la mau san pham ban chay nhat 2020',199.99);
+INSERT INTO products(product_id, product_name, brand_id, category_id, product_intro, list_price) VALUES(3,'Balo oxford',3,3,'Balo oxford - mang ca the gioi sau lung ban',219.99);
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456'
